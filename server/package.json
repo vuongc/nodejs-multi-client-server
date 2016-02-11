@@ -1,23 +1,15 @@
 {
-  "name": "nodejs-multi-client-server",
+  "name": "server",
   "version": "1.0.0",
-  "description": "multi server client",
+  "description": "IRC server with Express and Sequelize",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vuongc/nodejs-multi-client-server.git"
-  },
   "author": "vuongc",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vuongc/nodejs-multi-client-server/issues"
-  },
-  "homepage": "https://github.com/vuongc/nodejs-multi-client-server#readme",
   "dependencies": {
-    "body-parser": "^1.14.2",
+    "body-parser": "^1.15.0",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
@@ -25,11 +17,14 @@
     "method-override": "^2.3.5",
     "morgan": "^1.6.1",
     "multer": "^1.1.0",
-    "mysql": "^2.10.2",
-    "sequelize": "^3.18.0",
-    "serve-favicon": "^2.3.0"
+    "passport": "^0.3.2",
+    "sequelize": "^3.19.2",
+    "sequelize-cli": "^2.3.1",
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.4.5"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.36.7"
+    "istanbul": "^0.4.2",
+    "jasmine": "^2.4.1"
   }
 }
