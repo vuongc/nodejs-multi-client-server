@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "vuongc",
+    "password": "123456",
+    "database": "database_dev",
+    "host": "localhost",
+    "port": "3306",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "root",
+    "database": "database_test",
+    "host": "localhost",
+    "port": "3306",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "root",
+    "database": "database_production",
+    "host": "localhost",
+    "port": "3306",
+    "dialect": "mysql"
+  }
+}
