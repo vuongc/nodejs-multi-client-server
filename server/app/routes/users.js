@@ -4,7 +4,9 @@ var router  = express.Router();
 
 router.post('/create', function(req, res) {
   models.User.create({
-    username: req.body.username
+    username: req.body.username,
+    password: req.body.password,
+    isAdmin: req.body.isAdmin
   }).then(function() {
     res.redirect('/');
   });

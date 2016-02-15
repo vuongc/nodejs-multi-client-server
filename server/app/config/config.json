@@ -4,7 +4,7 @@
     "password": "123456",
     "database": "database_dev",
     "host": "localhost",
-    "port": "3306",
+    "port": "3300",
     "dialect": "mysql"
   },
   "test": {
@@ -12,7 +12,7 @@
     "password": "root",
     "database": "database_test",
     "host": "localhost",
-    "port": "3306",
+    "port": "3300",
     "dialect": "mysql"
   },
   "production": {
@@ -20,7 +20,7 @@
     "password": "root",
     "database": "database_production",
     "host": "localhost",
-    "port": "3306",
+    "port": "3300",
     "dialect": "mysql"
   }
 }
