@@ -1,6 +1,7 @@
 var debug = require('debug')('http');
 var app = require('./app/app');
 var models = require('./app/models');
+var routes = require('./app/routes');
 var http = require('http');
 
 // Set port in environment variable
