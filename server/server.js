@@ -10,6 +10,10 @@ app.set('port', process.env.PORT || 3306);
 // Synchronize models with database and start server
 models.sequelize.sync().then(function() {
 
+  app.get('/', function(req, res) {
+    res.send('Get routes console log');
+  });
+
   // Create server
   var server = http.createServer(app, function() {
     console.log('Create server console log');
@@ -18,9 +22,5 @@ models.sequelize.sync().then(function() {
   // Start server
   server.listen(3306, function() {
     console.log('App [http] is listening on port 3306');
-  });
-
-  app.get('/', function(req, res) {
-    console.log('Get routes console log');
   });
 });
