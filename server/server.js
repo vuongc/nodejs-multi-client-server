@@ -1,8 +1,9 @@
-var debug = require('debug')('http');
-var app = require('./app/app');
+var debug  = require('debug')('http');
+var app    = require('./app/app');
 var models = require('./app/models');
 var routes = require('./app/routes');
-var http = require('http');
+var http   = require('http');
+var io     = require('socket.io');
 
 // Set port in environment variable
 app.set('port', process.env.PORT || 3306);
