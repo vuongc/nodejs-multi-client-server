@@ -1,27 +1,31 @@
-var debug  = require('debug')('http');
-var app    = require('./app/app');
-var models = require('./app/models');
-var routes = require('./app/routes');
-var http   = require('http');
-var io     = require('socket.io');
+// Get module
+var express = require('express');
+var http = require('http');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var app = express();
 
-// Set port in environment variable
-app.set('port', process.env.PORT || 3306);
+var port = 3306;
 
-// Synchronize models with database and start server
-models.sequelize.sync().then(function() {
+var users = require('./routes/users');
 
-  app.get('/', function(req, res) {
-    res.send('Get routes console log');
-  });
+// Use middlewares
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-  // Create server
-  var server = http.createServer(app, function() {
-    console.log('Create server console log');
-  });
+// Load routes here
+app.use('/users', users);
 
-  // Start server
-  server.listen(3306, function() {
-    console.log('App [http] is listening on port 3306');
-  });
+app.get('/', function (req, res) {
+   res.send('Hello World');
+})
+
+// Open server
+var server = http.createServer(app);
+
+server.listen(port, function() {
+  var server_port = server.address().port;
+
+  console.log('Listening to port %s', port);
 });
