@@ -45,6 +45,8 @@ require('./routes.js')(app, passport); // load our routes and pass in our app an
 // Open server
 var server = http.createServer(app);
 
+var ioSocket = require('./config/socket')(server);
+
 server.listen(port, function() {
   var server_port = server.address().port;
 

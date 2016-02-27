@@ -2,39 +2,52 @@
 <!doctype html>
 <html>
 <head>
-  <title>Node Authentication</title>
+  <title>IRC Chat vuong_c</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-  <style>
-  body        { padding-top:80px; word-wrap:break-word; }
-  </style>
+  <link rel="stylesheet" href="../styles/main.css"/>
 </head>
 <body>
   <div class="container">
 
     <div class="page-header text-center">
-      <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+      <h1><span class="fa fa-anchor"></span> IRC Chat vuong_c</h1>
       <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
     <div class="row">
 
       <!-- LOCAL INFORMATION -->
-      <div class="col-sm-6">
-        <div class="well">
-          <h3><span class="fa fa-user"></span> Local</h3>
 
-          <p>
-            <strong>id</strong>: <%= user.id %><br>
-            <strong>username</strong>: <%= user.username %><br>
-            <strong>password</strong>: <%= user.password %>
-          </p>
-
-        </div>
+      <%# CHAT SESSION %>
+      <div class="col-md-12">
+          <div class="panel panel-primary">
+              <div class="panel-body">
+                  <ul id="messages" class="chat">
+                    <!-- Messages will be included here -->
+                  </ul>
+              </div>
+              <form id="form-msg" class="panel-footer" action="">
+                  <div class="input-group">
+                      <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                      <span class="input-group-btn">
+                        <input id="btn-chat" type="submit"
+                               class="btn btn-warning btn-sm"
+                               value="Send">
+                      </span>
+                  </div>
+              </form>
+          </div>
       </div>
 
     </div>
 
   </div>
+
+  <!-- Add scripts here -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.js"></script>
+  <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script type="text/javascript" src="../scripts/message.js"></script>
+
 </body>
 </html>
