@@ -3,7 +3,7 @@ body {
 }
 
 .panel-body {
-  height: 365px;
+  height: 355px;
   word-wrap: break-word;
 }
 
@@ -16,4 +16,9 @@ body {
 .username_chat {
   font-weight: bold;
   color: red;
+}
+
+.private_message {
+  font-weight: bold;
+  color: purple;
 }
