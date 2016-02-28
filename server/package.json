@@ -4,25 +4,26 @@
   "description": "IRC server with Express and Sequelize",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "vuongc",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
-    "debug": "^2.2.0",
-    "errorhandler": "^1.4.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.1",
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
-    "jade": "^1.11.0",
     "method-override": "^2.3.5",
-    "morgan": "^1.6.1",
-    "multer": "^1.1.0",
+    "morgan": "^1.7.0",
     "mysql": "^2.10.2",
     "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "sequelize": "^3.19.2",
     "sequelize-cli": "^2.3.1",
-    "serve-favicon": "^2.3.0",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {

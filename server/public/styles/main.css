@@ -1,0 +1,14 @@
+body {
+  padding-top: 80px;
+}
+
+.panel-body {
+  height: 237px;
+  word-wrap: break-word;
+}
+
+#messages {
+  max-height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
