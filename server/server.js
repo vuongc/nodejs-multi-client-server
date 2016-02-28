@@ -1,39 +1,54 @@
-'use strict';
+// Get module
+var express  = require('express');
+var app      = express();
+var http     = require('http');
+var passport = require('passport');
+var flash    = require('connect-flash');
 
-const electron = require('electron');
-const app = electron.app;  // Module to control application life.
-const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+var morgan       = require('morgan');
+var bodyParser   = require('body-parser');
+var cookieParser = require('cookie-parser');
+var ejs          = require('ejs');
+var session      = require('express-session');
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-var mainWindow = null;
+var port = process.env.PORT || 3306;
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function() {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform != 'darwin') {
-    app.quit();
-  }
-});
+// var users = require('./routes/users');
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-app.on('ready', function() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+require('./config/passport')(passport); // pass passport for configuration
 
-  // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+// Use middlewares
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // Read cookie (needed for auth)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+// Set the folder where the pages are kept
+app.set('views', __dirname + '/public/views');
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
+// This avoids having to provide the
+// extension to res.render()
+app.set('view engine', 'html');
+
+// required for passport
+app.use(session({ secret: 'secret' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+// Use middlewares
+app.use('/', express.static(__dirname + '/public'));
+
+// routes ======================================================================
+require('./routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+// Open server
+var server = http.createServer(app);
+
+var ioSocket = require('./config/socket')(server);
+
+server.listen(port, function() {
+  var server_port = server.address().port;
+
+  console.log('Listening to port %s', port);
 });
