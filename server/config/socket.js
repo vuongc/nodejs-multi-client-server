@@ -3,9 +3,11 @@ module.exports = function(server) {
   var connectedUsers = {};
 
   var io = require('socket.io')(server);
+  var cluster = require('../cluster_management');
 
   io.on('connection', function (socket) {
     console.log('new user connected !', socket.id);
+    cluster.createWorkerFromClient();
     if (!connectedUsers[socket.id]) {
       connectedUsers[socket.id] = true;
     }
