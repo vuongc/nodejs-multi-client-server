@@ -11,6 +11,10 @@ var cookieParser = require('cookie-parser');
 var ejs          = require('ejs');
 var session      = require('express-session');
 
+var socket = require('./config/socket');
+
+var cluster      = require('./cluster_management');
+
 var port = process.env.PORT || 3306;
 
 // var users = require('./routes/users');
@@ -31,7 +35,11 @@ app.set('views', __dirname + '/public/views');
 app.set('view engine', 'html');
 
 // required for passport
-app.use(session({ secret: 'secret' })); // session secret
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+ })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -45,10 +53,11 @@ require('./routes.js')(app, passport); // load our routes and pass in our app an
 // Open server
 var server = http.createServer(app);
 
-var ioSocket = require('./config/socket')(server);
+socket.initSocket(server);
 
 server.listen(port, function() {
   var server_port = server.address().port;
 
+  cluster.initCluster(server);
   console.log('Listening to port %s', port);
 });
