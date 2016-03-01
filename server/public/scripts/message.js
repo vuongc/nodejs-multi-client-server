@@ -33,6 +33,10 @@ socket.on('message', function(msg) {
   addMessage(msg);
 });
 
+socket.on('master-message', function(msg) {
+  addMessage('<span class="master_message">From Master</span>: ' + msg);
+});
+
 socket.on('new-user', function(data) {
   var username = addUsernameClass($('#username').text());
 

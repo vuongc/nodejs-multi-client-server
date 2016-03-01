@@ -11,6 +11,8 @@ var cookieParser = require('cookie-parser');
 var ejs          = require('ejs');
 var session      = require('express-session');
 
+var socket = require('./config/socket');
+
 var cluster      = require('./cluster_management');
 
 var port = process.env.PORT || 3306;
@@ -51,11 +53,11 @@ require('./routes.js')(app, passport); // load our routes and pass in our app an
 // Open server
 var server = http.createServer(app);
 
-var ioSocket = require('./config/socket')(server);
+socket.initSocket(server);
 
 server.listen(port, function() {
   var server_port = server.address().port;
 
-  cluster.initCluster();
+  cluster.initCluster(server);
   console.log('Listening to port %s', port);
 });

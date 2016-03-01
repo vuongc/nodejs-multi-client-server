@@ -1,10 +1,11 @@
 const os       = require('os');
 const path     = require('path')
 const cluster  = require('cluster');
+const io       = require('./config/socket');
 
-var initCluster = function() {
+var initCluster = function(server) {
   cluster.setupMaster({
-    exec: path.join(__dirname, '/modules/hello_world.js')
+    exec: './my_cluster.js'
   });
 
   cluster.on('online', function(worker) {
@@ -15,6 +16,10 @@ var initCluster = function() {
     console.log(`A worker is now connected to ${address.address}:${address.port}`);
   });
 
+  cluster.on('message', (msg) => {
+    console.log('I receive a message ', msg);
+  });
+
   cluster.on('exit', function(worker, code, signal) {
     console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
     // console.log('Starting a new worker');
@@ -23,19 +28,16 @@ var initCluster = function() {
 };
 
 var createWorkerFromClient = function() {
-  if (cluster.workers.length === undefined
-    || cluster.workers.length < os.cpus().length) {
-    console.log('fork cluster', cluster.workers);
-    cluster.fork();
-  }
-};
+  if (cluster.workers.length === undefined || cluster.workers.length < os.cpus().length) {
+    var worker = cluster.fork();
 
-var displayWorkers = function() {
-  console.log('workers are ', cluster.workers);
+    worker.on('message', (msg) => {
+      io.sendMessageFromCluster(msg);
+    });
+  }
 };
 
 module.exports = {
   initCluster,
-  createWorkerFromClient,
-  displayWorkers
+  createWorkerFromClient
 };

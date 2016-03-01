@@ -22,3 +22,8 @@ body {
   font-weight: bold;
   color: purple;
 }
+
+.master_message {
+  font-weight: bold;
+  color: blue;
+}

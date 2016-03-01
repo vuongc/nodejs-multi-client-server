@@ -1,8 +1,10 @@
-module.exports = function(server) {
+var io;
+
+var initSocket = function(server) {
 
   var connectedUsers = {};
 
-  var io = require('socket.io')(server);
+  io = require('socket.io')(server);
   var cluster = require('../cluster_management');
 
   io.on('connection', function (socket) {
@@ -39,4 +41,14 @@ module.exports = function(server) {
     });
 
   });
+};
+
+var sendMessageFromCluster = function(msg) {
+  console.log('Incoming message from cluster master [', msg, ']');
+  io.emit('message', '<span class="master_message">From Master</span>: ' + msg);
+};
+
+module.exports = {
+  initSocket,
+  sendMessageFromCluster
 };
